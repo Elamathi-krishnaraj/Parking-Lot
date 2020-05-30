@@ -226,6 +226,7 @@
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Core\DTOModel\RegisterDTO.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
+    <Compile Include="Core\Model\HomePage.cs" />
     <Compile Include="Core\Model\Registers.cs" />
     <Compile Include="Core\Model\UserRoles.cs" />
     <Compile Include="Core\Repositories\IRegisterRepository.cs" />
@@ -239,13 +240,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202005300939136_InitialModel.cs" />
-    <Compile Include="Migrations\202005300939136_InitialModel.designer.cs">
-      <DependentUpon>202005300939136_InitialModel.cs</DependentUpon>
+    <Compile Include="Migrations\202005301952126_InitialModels.cs" />
+    <Compile Include="Migrations\202005301952126_InitialModels.designer.cs">
+      <DependentUpon>202005301952126_InitialModels.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202005300943239_RolesData.cs" />
-    <Compile Include="Migrations\202005300943239_RolesData.designer.cs">
-      <DependentUpon>202005300943239_RolesData.cs</DependentUpon>
+    <Compile Include="Migrations\202005301955184_RolesTypeData.cs" />
+    <Compile Include="Migrations\202005301955184_RolesTypeData.designer.cs">
+      <DependentUpon>202005301955184_RolesTypeData.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\ParkingManagementContext.cs" />
@@ -308,6 +309,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Register\Register.cshtml" />
     <Content Include="Views\Register\Index.cshtml" />
+    <Content Include="Views\Register\Login.cshtml" />
+    <Content Include="Views\Home\HomePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -344,11 +347,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202005300939136_InitialModel.resx">
-      <DependentUpon>202005300939136_InitialModel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202005301952126_InitialModels.resx">
+      <DependentUpon>202005301952126_InitialModels.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202005300943239_RolesData.resx">
-      <DependentUpon>202005300943239_RolesData.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202005301955184_RolesTypeData.resx">
+      <DependentUpon>202005301955184_RolesTypeData.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -9,13 +9,9 @@ namespace ParkingManagement.Core.Model
 {
     public class Registers
     {
-        public Registers()
-        {
-            UserRoleList = new HashSet<UserRoles>();
-        }
         [Key]
         [Required]
-        public int Id { get; set; }
+        public int RegisterId { get; set; }
 
         [Required]
         [EmailAddress]
@@ -34,13 +30,16 @@ namespace ParkingManagement.Core.Model
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
+        [NotMapped]
+        public ICollection<UserRoles> RoleList { get; set; }
+
         public int RoleId { get; set; }
-
         [ForeignKey("RoleId")]
-        [Display(Name = "Select Role")]
-        public virtual ICollection<UserRoles> UserRoleList { get; set; }
 
- 
+        public UserRoles UserRoles { get; set; }
+
+
+
 
     }
 }

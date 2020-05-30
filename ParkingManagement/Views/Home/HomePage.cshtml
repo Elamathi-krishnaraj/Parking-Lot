@@ -1,0 +1,31 @@
+﻿@model ParkingManagement.Core.Model.HomePage
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div>
+            <h3>Dashboard</h3>
+        </div>
+        <hr />
+        <div><h4>Welcome @Session["Username"].ToString()</h4></div>
+        <br />
+        <br />
+        <div>
+            <h4>Your Role Type - @Session["Role"].ToString()</h4>
+        </div>
+        <br />
+        @if (@Session["Role"].ToString() == "Admin")
+        {
+            @*<input type="button" value="Some text" onclick="@("window.location.href='" + @Url.Action("actionName", "controllerName") + "'");" />*@
+            <input type="submit" value="Go To Lottery" class="btn btn-default" />
+        }
+        else
+        {
+            <input type="submit" value="Raise Request" class="btn btn-default" />
+            <input type="submit" value="Cancel Request" class="btn btn-default" />
+
+        }
+    </div>
+}

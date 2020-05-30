@@ -14,5 +14,10 @@ namespace ParkingManagement.Controllers
 
             return View();
         }
+        //[Authorize]
+        public ActionResult HomePage()
+        {
+            return View();
+        }
     }
 }

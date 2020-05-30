@@ -42,10 +42,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.UserRoleList, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.RoleId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.UserRoleList, new SelectList(Model.UserRoleList, "Id", "RoleName"), "Select one", new { @class = "form-control", id = "RoleId" })
-                @Html.ValidationMessageFor(m => m.UserRoleList, string.Empty, new { @class = "" })
+                @Html.DropDownListFor(m => m.RoleId, new SelectList(Model.RoleList, "RoleId", "RoleName"), "Select one", new { @class = "form-control", id = "RoleId" })
+                @Html.ValidationMessageFor(m => m.RoleId, string.Empty, new { @class = "" })
             </div>
         </div>
 

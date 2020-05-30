@@ -14,7 +14,12 @@ namespace ParkingManagement.Persistence.Repositories
         }
         public IEnumerable<Registers> GetRegisters(int Id)
         {
-            return ParkingManagementContext.Registers.Where(n=>n.Id == Id).ToList();
+            return ParkingManagementContext.Registers.Where(n=>n.RegisterId == Id).ToList();
+        }
+
+        public Registers ValidateLogin(Registers LoginDetails)
+        {
+            return ParkingManagementContext.Registers.Where(n => n.UserName == LoginDetails.UserName && n.Password == LoginDetails.Password).FirstOrDefault();
         }
 
         public ParkingManagementContext ParkingManagementContext

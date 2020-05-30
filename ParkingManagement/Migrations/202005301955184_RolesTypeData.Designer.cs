@@ -7,13 +7,13 @@ namespace ParkingManagement.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class InitialModel : IMigrationMetadata
+    public sealed partial class RolesTypeData : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialModel));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RolesTypeData));
         
         string IMigrationMetadata.Id
         {
-            get { return "202005300939136_InitialModel"; }
+            get { return "202005301955184_RolesTypeData"; }
         }
         
         string IMigrationMetadata.Source

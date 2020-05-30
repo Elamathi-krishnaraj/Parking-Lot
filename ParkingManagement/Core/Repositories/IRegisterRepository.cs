@@ -9,5 +9,6 @@ namespace ParkingManagement.Core.Repositories
     public interface IRegisterRepository : IRepository<Registers>
     {
         IEnumerable<Registers> GetRegisters(int Id);
+        Registers ValidateLogin(Registers LoginDetails);
     }
 }
