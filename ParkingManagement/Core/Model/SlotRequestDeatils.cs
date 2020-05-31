@@ -19,8 +19,8 @@ namespace ParkingManagement.Core.Model
         public string EmployeeName { get; set; }
         public bool IsSurrender { get; set; }
 
-        public int SlotRegisterId { get; set; }
-        [ForeignKey("SlotRegisterId")]
+        public int RegisterId { get; set; }
+        [ForeignKey("RegisterId")]
         public Registers Registers { get; set; }
 
         [Display(Name = "Duration")]

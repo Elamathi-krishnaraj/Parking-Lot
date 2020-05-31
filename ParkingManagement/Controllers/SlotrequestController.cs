@@ -32,7 +32,7 @@ namespace ParkingManagement.Controllers
             slotrequest.TowerList = _unitOfWork.Tower.GetTowers().ToList();
             slotrequest.TowerBlockList = _unitOfWork.TowerBlock.GetTowerBlocks().ToList();
             slotrequest.TowerBlockSlotList = _unitOfWork.TowerBlockSlot.GetTowerBlockSlots().ToList();
-            slotrequest.SlotRegisterId = Convert.ToInt32(Session["UserId"]);
+            slotrequest.RegisterId = Convert.ToInt32(Session["UserId"]);
 
             return View(slotrequest);
         }
@@ -43,9 +43,10 @@ namespace ParkingManagement.Controllers
         {
             if (ModelState.IsValid)
             {
+                var UserId = Convert.ToInt32(Session["UserId"]);
                 _unitOfWork.slotRequestDetails.Add(new SlotRequestDeatils()
                 {
-                    SlotRegisterId = slotObj.SlotRegisterId,
+                    RegisterId = Convert.ToInt32(UserId),
                     DurationId = slotObj.DurationId,
                     TowerId = slotObj.TowerId,
                     TowerBlockId = slotObj.TowerBlockId,

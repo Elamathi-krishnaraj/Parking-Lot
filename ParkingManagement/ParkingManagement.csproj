@@ -287,6 +287,10 @@
     <Compile Include="Migrations\202005311401467_RegisterConflict.designer.cs">
       <DependentUpon>202005311401467_RegisterConflict.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005311703253_RegisteridRevert.cs" />
+    <Compile Include="Migrations\202005311703253_RegisteridRevert.designer.cs">
+      <DependentUpon>202005311703253_RegisteridRevert.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\ParkingManagementContext.cs" />
     <Compile Include="Persistence\Repositories\RegisterRepository.cs" />
@@ -418,6 +422,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005311401467_RegisterConflict.resx">
       <DependentUpon>202005311401467_RegisterConflict.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005311703253_RegisteridRevert.resx">
+      <DependentUpon>202005311703253_RegisteridRevert.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
