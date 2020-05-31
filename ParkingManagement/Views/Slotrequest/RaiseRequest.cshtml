@@ -1,0 +1,73 @@
+﻿@model ParkingManagement.Core.Model.SlotRequestDeatils
+
+@{
+    ViewBag.Title = "RaiseRequest";
+}
+
+<h4></h4>
+
+
+@using (Html.BeginForm("SaveRequest", "Slotrequest", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Raise Request</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DurationId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.DurationId, new SelectList(Model.DurationList, "DurationId", "DurationDescription"), "Select one", new { @class = "form-control", id = "DurationId" })
+            @Html.ValidationMessageFor(model => model.DurationId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TowerId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.TowerId, new SelectList(Model.TowerList, "TowerId", "TowerDescription"), "Select one", new { @class = "form-control", id = "TowerId" })
+            @Html.ValidationMessageFor(model => model.TowerId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TowerBlockId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.TowerBlockId, new SelectList(Model.TowerBlockList, "TowerBlockId", "BlockDescription"), "Select one", new { @class = "form-control", id = "TowerBlockId" })
+            @Html.ValidationMessageFor(model => model.TowerBlockId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TowerBlockSlotId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.TowerBlockSlotId, new SelectList(Model.TowerBlockSlotList, "TowerBlockSlotId", "SlotDescription"), "Select one", new { @class = "form-control", id = "TowerBlockSlotId" })
+            @Html.ValidationMessageFor(model => model.TowerBlockSlotId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Remarks, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Submit" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
