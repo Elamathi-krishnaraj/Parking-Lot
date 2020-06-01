@@ -7,9 +7,8 @@ using ParkingManagement.Core.Model;
 
 namespace ParkingManagement.Core.Repositories
 {
-    public interface IRequestDetailsRepository : IRepository<RequestDetails>
+    public interface ISurrenderHistoryRepository : IRepository<SurrenderHistory>
     {
-        IEnumerable<RequestDetails> GetRequestDetails();
-        IEnumerable<RequestDetails> GetPatientsApi();
+        IEnumerable<SurrenderHistory> GetSurrenderHistories();
     }
 }

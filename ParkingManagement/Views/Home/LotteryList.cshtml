@@ -5,50 +5,63 @@
 }
 
 <h4>Request List</h4>
-<table id="customers" class="table table-bordered table-hover">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Duration</th>
-            <th>From Date</th>
-            <th>To Date</th>
-            <th>Preference 1</th>
-            <th>Preference 2</th>
-            <th>Preference 3</th>
-            <th>Cancel</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
+<div>
+    <table id="customers" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Duration</th>
+                <th>From Date</th>
+                <th>To Date</th>
+                <th>Preference 1</th>
+                <th>Preference 2</th>
+                <th>Preference 3</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+<br />
+<div>
+    <input type="button" value="Run Lottery" onclick="@("window.location.href='" + @Url.Action("RunLottery", "Lottery") + "'");" />
+
+</div>
 
 @section scripts
     {
     <script>
         $(document).ready(function () {
+            debugger;
             var table = $("#customers").DataTable({
                 ajax: {
-                    url: "/api/customers",
+                    url: "http://localhost:52918/api/employeeslot",
                     dataSrc: "",
                 },
                 columns: [
                     {
-                        data: "name",
-                        render: function (data, type, customer) {
-                            return "<a href='/customers/edit/" + customer.id + "'>" + customer.name + "</a>";
-                        }
-                        },
-                        {
-                            data: "membershipType.name"
+                        data: "requestDetailsId"
                     },
                     {
-                        data: "id",
-                        render: function (data) {
-                            return "<button class='btn-link js-delete' data-customer-id=" + data + ">Delete</button>";
-                        }
+                        data: "requestDurationType.durationDescription"
+                    },
+                    {
+                        data: "fromDate"
+                    },
+                    {
+                        data: "toDate"
+                    },
+                    {
+                        data: "preferenceOneTowerId"
+                    },
+                    {
+                        data: "preferenceTwoTowerId"
+                    },
+                    {
+                        data: "preferenceThreeTowerId"
                     }
-                        ]
+                ]
             });
-
+        });
     </script>
 }
 

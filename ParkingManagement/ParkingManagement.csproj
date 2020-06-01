@@ -222,6 +222,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\Api\EmployeeSlotController.cs" />
+    <Compile Include="Controllers\LotteryController.cs" />
     <Compile Include="Controllers\SlotrequestController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
@@ -235,6 +236,7 @@
     <Compile Include="Core\Model\SlotRequestDeatils.cs" />
     <Compile Include="Core\Model\Registers.cs" />
     <Compile Include="Core\Model\RequestDurationType.cs" />
+    <Compile Include="Core\Model\SurrenderHistory.cs" />
     <Compile Include="Core\Model\Tower.cs" />
     <Compile Include="Core\Model\TowerBlock.cs" />
     <Compile Include="Core\Model\TowerBlockSlot.cs" />
@@ -247,6 +249,7 @@
     <Compile Include="Core\Repositories\IRoleRepository.cs" />
     <Compile Include="Core\Repositories\ISlotRequestDetailsRepository.cs" />
     <Compile Include="Core\Repositories\IParkingSlotRepository.cs" />
+    <Compile Include="Core\Repositories\ISurrenderHistoryRepository.cs" />
     <Compile Include="Core\Repositories\ITowerBlockRepository.cs" />
     <Compile Include="Core\Repositories\ITowerBlockSlotRepository.cs" />
     <Compile Include="Core\Repositories\ITowerRepository.cs" />
@@ -310,6 +313,10 @@
     <Compile Include="Migrations\202006011258033_RequestAllocation.designer.cs">
       <DependentUpon>202006011258033_RequestAllocation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006012009214_SurrenderTable.cs" />
+    <Compile Include="Migrations\202006012009214_SurrenderTable.designer.cs">
+      <DependentUpon>202006012009214_SurrenderTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\ParkingManagementContext.cs" />
     <Compile Include="Persistence\Repositories\ParkingAllocationRepository.cs" />
@@ -320,6 +327,7 @@
     <Compile Include="Persistence\Repositories\RequestDuationTypeRepository.cs" />
     <Compile Include="Persistence\Repositories\RoleRepository.cs" />
     <Compile Include="Persistence\Repositories\SlotRequestDetailsRepository.cs" />
+    <Compile Include="Persistence\Repositories\SurrenderHistoryRepository.cs" />
     <Compile Include="Persistence\Repositories\TowerBlockRepository.cs" />
     <Compile Include="Persistence\Repositories\TowerBlockSlotRepository.cs" />
     <Compile Include="Persistence\Repositories\TowerRepository.cs" />
@@ -638,6 +646,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006011258033_RequestAllocation.resx">
       <DependentUpon>202006011258033_RequestAllocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006012009214_SurrenderTable.resx">
+      <DependentUpon>202006012009214_SurrenderTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

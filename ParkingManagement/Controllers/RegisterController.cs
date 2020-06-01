@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
 using ParkingManagement.Core;
-using ParkingManagement.Core.DTOModel;
 using ParkingManagement.Core.Model;
-using ParkingManagement.Persistence;
 
 namespace ParkingManagement.Controllers
 {

@@ -60,8 +60,8 @@
         <br />
         @if (Model.RoleName.ToString() == "Admin")
         {
-            <input type="button" value="Go To Lottery" onclick="@("window.location.href='" + @Url.Action("actionName", "controllerName") + "'");" />
-            <input type="submit" value="Go To Lottery" class="btn btn-default" />
+            <input type="button" value="Go To Lottery" onclick="@("window.location.href='" + @Url.Action("LotteryList", "Home") + "'");" />
+            @*<input type="submit" value="Go To Lottery" class="btn btn-default" />*@
         }
         else
         {

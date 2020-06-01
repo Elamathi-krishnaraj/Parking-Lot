@@ -20,6 +20,10 @@ namespace ParkingManagement.Persistence.Repositories
                 .Include(c=>c.RequestDurationType)
                 .Include(c=>c.Registers).ToList();
         }
+        public IEnumerable<RequestDetails> GetPatientsApi()
+        {
+            return ParkingManagementContext.RequestDetails.Include(c => c.Registers).Include(c=>c.RequestDurationType);
+        }
 
         public ParkingManagementContext ParkingManagementContext
         {
