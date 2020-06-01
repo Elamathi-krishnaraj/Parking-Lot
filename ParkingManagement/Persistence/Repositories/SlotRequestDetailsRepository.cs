@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using ParkingManagement.Core.Model;
 using ParkingManagement.Core.Repositories;
+using System.Data.Entity;
 
 namespace ParkingManagement.Persistence.Repositories
 {
@@ -15,7 +16,13 @@ namespace ParkingManagement.Persistence.Repositories
         }
         public IEnumerable<SlotRequestDeatils> GetSlotRequestDeatils()
         {
-            return ParkingManagementContext.SlotRequestDeatils.ToList();
+            return ParkingManagementContext.SlotRequestDeatils
+                .Include(c=>c.RequestDurationType)
+                .Include(c=>c.Tower)
+                .Include(c=>c.TowerBlock)
+                .Include(c=>c.TowerBlock)
+                .Include(c=>c.Registers)
+                .ToList();
         }
 
         public ParkingManagementContext ParkingManagementContext

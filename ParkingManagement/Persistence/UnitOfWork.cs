@@ -16,6 +16,11 @@ namespace ParkingManagement.Persistence
             UserRoles = new RoleRepository(_parkingManagementContext);
             RequestDuationTypes = new RequestDuationTypeRepository(_parkingManagementContext);
             Tower = new TowerRepository(_parkingManagementContext);
+            ParkingSlot = new ParkingSlotRepository(_parkingManagementContext);
+            RequestDetails = new RequestDetailsRepository(_parkingManagementContext);
+            ParkingAllocation = new ParkingAllocationRepository(_parkingManagementContext);
+
+
             TowerBlock = new TowerBlockRepository(_parkingManagementContext);
             TowerBlockSlot = new TowerBlockSlotRepository(_parkingManagementContext);
             slotRequestDetails = new SlotRequestDetailsRepository(_parkingManagementContext);
@@ -25,6 +30,11 @@ namespace ParkingManagement.Persistence
         public IRoleRepository UserRoles { get; private set; }
         public IRequestDuationTypeRepository RequestDuationTypes { get; private set; }
         public ITowerRepository Tower { get; private set; }
+        public IParkingSlotRepository ParkingSlot { get; private set; }
+        public IRequestDetailsRepository RequestDetails { get; private set; }
+        public IParkingAllocationRepository ParkingAllocation { get; private set; }
+
+
         public ITowerBlockRepository TowerBlock { get; private set; }
         public ITowerBlockSlotRepository TowerBlockSlot { get; private set; }
         public ISlotRequestDetailsRepository slotRequestDetails { get; private set; }

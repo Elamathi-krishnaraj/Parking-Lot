@@ -1,31 +1,86 @@
 ﻿@model ParkingManagement.Core.Model.HomePage
 
+@{
+    /**/
+
+    ViewBag.Title = "Home Page";
+}
+
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div>
+            <h3>Dashboard</h3>
+        </div>
+        <hr />
+        <div><h4>Welcome @Model.UserName</h4></div>
+        <br />
+        <br />
+        <div>
+            <h4>Your Role Type - @Model.RoleName</h4>
+        </div>
+        <br />
+        <div>
+            @if (Model.RequestList.Count() > 0)
+            {
+                <table style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%;">
+                    <tr>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Id</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Duration</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">From Date</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">To Date</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Preference 1</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Preference 2</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Preference 3</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Cancel</th>
+                    </tr>
+                    <tbody>
+                        @foreach (var item in Model.RequestList)
+                        {
+                        <tr>
+                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">@item.RequestDetailsId</td>
+                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">@item.RequestDurationType.DurationDescription</td>
+                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">@item.FromDate</td>
+                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">@item.ToDate</td>
+                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Tower - @item.PreferenceOneTowerId</td>
+                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Tower - @item.PreferenceTwoTowerId</td>
+                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Tower - @item.PreferenceThreeTowerId</td>
+                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;"><input type="button" value="Cancel Request" onclick="DeleteClick(@item.RequestDetailsId)" /></td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <h4>No Record found</h4>
+            }
+        </div>
+        <br />
+        @if (Model.RoleName.ToString() == "Admin")
+        {
+            <input type="button" value="Go To Lottery" onclick="@("window.location.href='" + @Url.Action("actionName", "controllerName") + "'");" />
+            <input type="submit" value="Go To Lottery" class="btn btn-default" />
+        }
+        else
+        {
+            <input type="button" value="Raise Request" onclick="@("window.location.href='" + @Url.Action("RequestView", "Slotrequest") + "'");" />
 
-<div class="form-horizontal">
-    <div>
-        <h3>Dashboard</h3>
-    </div>
-    <hr />
-    <div><h4>Welcome @Session["Username"].ToString()</h4></div>
-    <br />
-    <br />
-    <div>
-        <h4>Your Role Type - @Session["Role"].ToString()</h4>
-    </div>
-    <br />
-    @if (@Session["Role"].ToString() == "Admin")
-    {
-        @*<input type="button" value="Some text" onclick="@("window.location.href='" + @Url.Action("actionName", "controllerName") + "'");" />*@
-        <input type="submit" value="Go To Lottery" class="btn btn-default" />
-    }
-    else
-    {
-        <input type="button" value="Raise Request" onclick="@("window.location.href='" + @Url.Action("RaiseRequest", "Slotrequest") + "'");" />
-        <input type="submit" value="Cancel Request" class="btn btn-default" />
+        }
 
-    }
-</div>
+    </div>
+
+
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        function DeleteClick(req_id) {
+            if (confirm(" Are you sure?")) {
+            window.location.href = "@Url.Action("DeleteView", "Slotrequest")?id=" + req_id;
+            }
+        }
+    </script>
 }

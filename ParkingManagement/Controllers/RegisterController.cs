@@ -48,6 +48,12 @@ namespace ParkingManagement.Controllers
         {
             return View();
         }
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            Session.Abandon();
+            return Redirect("/Register/Login");
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ValidateLogin(Registers LoginUser)

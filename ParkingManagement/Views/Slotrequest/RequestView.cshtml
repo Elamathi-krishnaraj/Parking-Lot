@@ -1,0 +1,81 @@
+﻿@model ParkingManagement.Core.Model.RequestDetails
+
+@{
+    ViewBag.Title = "RequestView";
+}
+
+<h2>RequestView</h2>
+
+
+@using (Html.BeginForm("SaveRequestView", "Slotrequest", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>RequestDetails</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DurationId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.DurationId, new SelectList(Model.DurationList, "DurationId", "DurationDescription"), "Select one", new { @class = "form-control", id = "DurationId" })
+                @Html.ValidationMessageFor(model => model.DurationId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FromDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FromDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FromDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ToDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ToDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ToDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PreferenceOneTowerId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.PreferenceOneTowerId, new SelectList(Model.TowerList, "TowerId", "TowerDescription"), "Select one", new { @class = "form-control", id = "PreferenceOneTowerId" })
+                @Html.ValidationMessageFor(model => model.PreferenceOneTowerId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PreferenceTwoTowerId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.PreferenceTwoTowerId, new SelectList(Model.TowerList, "TowerId", "TowerDescription"), "Select one", new { @class = "form-control", id = "PreferenceTwoTowerId" })
+                @Html.ValidationMessageFor(model => model.PreferenceTwoTowerId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PreferenceThreeTowerId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.PreferenceThreeTowerId, new SelectList(Model.TowerList, "TowerId", "TowerDescription"), "Select one", new { @class = "form-control", id = "PreferenceThreeTowerId" })
+                @Html.ValidationMessageFor(model => model.PreferenceThreeTowerId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

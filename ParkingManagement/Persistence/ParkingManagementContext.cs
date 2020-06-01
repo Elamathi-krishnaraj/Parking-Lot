@@ -45,6 +45,11 @@ namespace ParkingManagement.Persistence
         public virtual DbSet<Registers> Registers { get; set; }
         public virtual DbSet<RequestDurationType> RequestDurationTypes { get; set; }
         public virtual DbSet<Tower> Towers { get; set; }
+        public virtual DbSet<ParkingSlot> ParkingSlots { get; set; }
+        public virtual DbSet<RequestDetails> RequestDetails { get; set; }
+        public virtual DbSet<ParkingAllocation> ParkingAllocations { get; set; }
+
+
         public virtual DbSet<TowerBlock> TowerBlocks { get; set; }
         public virtual DbSet<TowerBlockSlot> TowerBlockSlots { get; set; }
         public virtual DbSet<SlotRequestDeatils> SlotRequestDeatils { get; set; }

@@ -9,9 +9,16 @@ namespace ParkingManagement.Core
         IRoleRepository UserRoles { get; }
         IRequestDuationTypeRepository RequestDuationTypes { get; }
         ITowerRepository Tower { get; }
+        IParkingSlotRepository ParkingSlot { get; }
+        IRequestDetailsRepository RequestDetails { get; }
+        IParkingAllocationRepository ParkingAllocation { get; }
+
+
         ITowerBlockRepository TowerBlock { get; }
         ITowerBlockSlotRepository TowerBlockSlot { get; }
         ISlotRequestDetailsRepository slotRequestDetails { get; }
+
+
         void Complete();
     }
 }

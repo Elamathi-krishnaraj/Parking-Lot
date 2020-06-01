@@ -9,5 +9,12 @@ namespace ParkingManagement.Core.Model
 {
     public class HomePage
     {
+        public ICollection<RequestDetails> RequestList { get; set; }
+
+        public  int UserId { get; set; }
+        public string UserName { get; set; }
+        public string RoleName { get; set; }
+
+
     }
 }

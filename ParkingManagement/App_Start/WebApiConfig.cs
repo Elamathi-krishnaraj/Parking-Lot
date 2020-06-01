@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Newtonsoft.Json;// for Camel notations
+using Newtonsoft.Json.Serialization; // for Camel notations
 
 namespace ParkingManagement
 {
@@ -9,6 +11,11 @@ namespace ParkingManagement
     {
         public static void Register(HttpConfiguration config)
         {
+            //camel notations
+            var settings = config.Formatters.JsonFormatter.SerializerSettings;
+            settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            settings.Formatting = Formatting.Indented;
+
             // Web API configuration and services
 
             // Web API routes
