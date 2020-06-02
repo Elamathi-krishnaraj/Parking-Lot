@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Web;
 using ParkingManagement.Core.Model;
 using ParkingManagement.Core.Repositories;
+using System.Threading.Tasks;
 
 namespace ParkingManagement.Persistence.Repositories
 {
@@ -14,12 +15,12 @@ namespace ParkingManagement.Persistence.Repositories
             : base(context)
         {
         }
-        public IEnumerable<TowerParkingSlot> GetTowerParkingSlots()
+        public async Task<IEnumerable<TowerParkingSlot>> GetTowerParkingSlots()
         {
-            return ParkingManagementContext.TowerParkingSlots
+            return await ParkingManagementContext.TowerParkingSlots
                 .Include(c=>c.Tower)
                 .Include(c=>c.ParkingSlot)
-                .ToList();
+                .ToListAsync();
         }
 
         public ParkingManagementContext ParkingManagementContext

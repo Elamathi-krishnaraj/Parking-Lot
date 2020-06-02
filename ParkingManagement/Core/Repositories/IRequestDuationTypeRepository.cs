@@ -9,6 +9,6 @@ namespace ParkingManagement.Core.Repositories
 {
     public interface IRequestDuationTypeRepository : IRepository<RequestDurationType>
     {
-        IEnumerable<RequestDurationType> GetRequestDurationType();
+        Task<IEnumerable<RequestDurationType>> GetRequestDurationType();
     }
 }

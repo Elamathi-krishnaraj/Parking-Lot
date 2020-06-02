@@ -9,6 +9,6 @@ namespace ParkingManagement.Core.Repositories
 {
     public interface ISlotRequestDetailsRepository : IRepository<SlotRequestDeatils>
     {
-        IEnumerable<SlotRequestDeatils> GetSlotRequestDeatils();
+        Task<IEnumerable<SlotRequestDeatils>> GetSlotRequestDeatils();
     }
 }

@@ -19,17 +19,9 @@ namespace ParkingManagement.Controllers.Api
         public EmployeeSlotController() {
             _context = new ParkingManagementContext();
         }
-        //private readonly IUnitOfWork _unitOfWork;
-        //public EmployeeSlotController(IUnitOfWork unitOfWork)
-        //{
-        //    _unitOfWork = unitOfWork;
-
-        //}
         // GET /api/
         public IHttpActionResult GetEmployeeSlot()
         {
-            //var resultlistQuery = _unitOfWork.RequestDetails.GetRequestDetails();
-            //var resultlist = resultlistQuery.ToList();
 
             var resultlistQuery = _context.RequestDetails
                 .Include(c => c.Registers)

@@ -10,6 +10,6 @@ namespace ParkingManagement.Core.Repositories
 {
     public interface ITowerRepository : IRepository<Tower>
     {
-        IEnumerable<Tower> GetTowers();
+        Task<IEnumerable<Tower>> GetTowers();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using ParkingManagement.Core.Model;
 using ParkingManagement.Core.Repositories;
 
@@ -12,14 +13,14 @@ namespace ParkingManagement.Persistence.Repositories
             : base(context)
         {
         }
-        public IEnumerable<Registers> GetRegisters(int Id)
+        public async Task<IEnumerable<Registers>> GetRegisters(int Id)
         {
-            return ParkingManagementContext.Registers.Where(n=>n.RegisterId == Id).ToList();
+            return await ParkingManagementContext.Registers.Where(n=>n.RegisterId == Id).ToListAsync();
         }
 
-        public Registers ValidateLogin(Registers LoginDetails)
+        public async Task<Registers> ValidateLogin(Registers LoginDetails)
         {
-            return ParkingManagementContext.Registers.Where(n => n.UserName == LoginDetails.UserName && n.Password == LoginDetails.Password).FirstOrDefault();
+            return await ParkingManagementContext.Registers.Where(n => n.UserName == LoginDetails.UserName && n.Password == LoginDetails.Password).FirstOrDefaultAsync();
         }
 
         public ParkingManagementContext ParkingManagementContext

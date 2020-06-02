@@ -5,6 +5,7 @@ using System.Web;
 using System.Data.Entity;
 using ParkingManagement.Core.Model;
 using ParkingManagement.Core.Repositories;
+using System.Threading.Tasks;
 
 namespace ParkingManagement.Persistence.Repositories
 {
@@ -14,15 +15,18 @@ namespace ParkingManagement.Persistence.Repositories
             : base(context)
         {
         }
-        public IEnumerable<RequestDetails> GetRequestDetails()
+        public async Task<IEnumerable<RequestDetails>> GetRequestDetails()
         {
-            return ParkingManagementContext.RequestDetails
+            return await ParkingManagementContext.RequestDetails
                 .Include(c=>c.RequestDurationType)
-                .Include(c=>c.Registers).ToList();
+                .Include(c=>c.Registers).ToListAsync();
         }
-        public IEnumerable<RequestDetails> GetPatientsApi()
+        public async Task<IEnumerable<RequestDetails>> GetPatientsApi()
         {
-            return ParkingManagementContext.RequestDetails.Include(c => c.Registers).Include(c=>c.RequestDurationType);
+            return await ParkingManagementContext.RequestDetails
+                .Include(c => c.Registers)
+                .Include(c=>c.RequestDurationType)
+                .ToListAsync();
         }
 
         public ParkingManagementContext ParkingManagementContext

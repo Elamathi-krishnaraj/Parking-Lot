@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
+using System.Data.Entity;
 using ParkingManagement.Core.Model;
 using ParkingManagement.Core.Repositories;
 
@@ -13,9 +15,9 @@ namespace ParkingManagement.Persistence.Repositories
             : base(context)
         {
         }
-        public IEnumerable<SurrenderHistory> GetSurrenderHistories()
+        public async Task<IEnumerable<SurrenderHistory>> GetSurrenderHistories()
         {
-            return ParkingManagementContext.SurrenderHistories.ToList();
+            return await ParkingManagementContext.SurrenderHistories.ToListAsync();
         }
 
         public ParkingManagementContext ParkingManagementContext

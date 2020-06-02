@@ -9,6 +9,6 @@ namespace ParkingManagement.Core.Repositories
 {
     public interface ITowerParkingSlotRepository : IRepository<TowerParkingSlot>
     {
-        IEnumerable<TowerParkingSlot> GetTowerParkingSlots();
+        Task<IEnumerable<TowerParkingSlot>> GetTowerParkingSlots();
     }
 }

@@ -1,12 +1,16 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using ParkingManagement.Core;
 using ParkingManagement.Core.Model;
+using System.Threading.Tasks;
 
 namespace ParkingManagement.Controllers
 {
     public class RegisterController : Controller
     {
+        log4net.ILog logger = log4net.LogManager.GetLogger(typeof(RegisterController));
+
         public RegisterController() { }
         private readonly IUnitOfWork _unitOfWork;
 
@@ -15,28 +19,47 @@ namespace ParkingManagement.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var register = new Registers();
-            register.RoleList = _unitOfWork.UserRoles.GetRoles().ToList();
+            try
+            {
+                var register = new Registers();
+                var reg = await _unitOfWork.UserRoles.GetRoles();
+                register.RoleList = reg.ToList();
 
-            return View(register);
+                return View(register);
+            }
+            catch (Exception ex)
+            {
+                logger.Info("Index error : " + ex);
+                logger.Debug(ex);
+                return View("Error");
+            }
         }
         [HttpPost]
-        public ActionResult RegisterSave(Registers registerObj )
+        public ActionResult RegisterSave(Registers registerObj)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _unitOfWork.Registers.Add(new Registers()
+                if (ModelState.IsValid)
                 {
-                    UserName = registerObj.UserName,
-                    Password = registerObj.Password,
-                    ConfirmPassword = registerObj.ConfirmPassword,
-                    RoleId = registerObj.RoleId
-                });
-                _unitOfWork.Complete();
+                    _unitOfWork.Registers.Add(new Registers()
+                    {
+                        UserName = registerObj.UserName,
+                        Password = registerObj.Password,
+                        ConfirmPassword = registerObj.ConfirmPassword,
+                        RoleId = registerObj.RoleId
+                    });
+                    _unitOfWork.Complete();
+                }
+                return RedirectToAction("Login");
             }
-            return RedirectToAction("Login");
+            catch (Exception ex)
+            {
+                logger.Info("RegisterSave error : " + ex);
+                logger.Debug(ex);
+                return View("Error");
+            }
 
         }
         public ActionResult Login()
@@ -51,19 +74,28 @@ namespace ParkingManagement.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ValidateLogin(Registers LoginUser)
+        public async Task<ActionResult> ValidateLogin(Registers LoginUser)
         {
-            var loginuser = _unitOfWork.Registers.ValidateLogin(LoginUser);
-            if(loginuser != null)
+            try
             {
-                Session["Username"] = loginuser.UserName;
-                Session["UserId"] = loginuser.RegisterId;
-                if (loginuser.RoleId == 1)
-                    Session["Role"] = "Admin";
-                else
-                    Session["Role"] = "User";
+                var loginuser = await _unitOfWork.Registers.ValidateLogin(LoginUser);
+                if (loginuser != null)
+                {
+                    Session["Username"] = loginuser.UserName;
+                    Session["UserId"] = loginuser.RegisterId;
+                    if (loginuser.RoleId == 1)
+                        Session["Role"] = "Admin";
+                    else
+                        Session["Role"] = "User";
+                }
+                return Redirect("/Home/HomePage");
             }
-            return Redirect("/Home/HomePage");
+            catch (Exception ex)
+            {
+                logger.Info("ValidateLogin error : " + ex);
+                logger.Debug(ex);
+                return View("Error");
+            }
         }
 
         //public ActionResult GetRoleList()

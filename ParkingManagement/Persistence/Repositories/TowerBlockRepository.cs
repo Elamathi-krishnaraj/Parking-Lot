@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using ParkingManagement.Core.Model;
+using System.Data.Entity;
 using ParkingManagement.Core.Repositories;
+using System.Threading.Tasks;
 
 namespace ParkingManagement.Persistence.Repositories
 {
@@ -13,9 +15,9 @@ namespace ParkingManagement.Persistence.Repositories
             : base(context)
         {
         }
-        public IEnumerable<TowerBlock> GetTowerBlocks()
+        public async Task<IEnumerable<TowerBlock>> GetTowerBlocks()
         {
-            return ParkingManagementContext.TowerBlocks.ToList();
+            return await ParkingManagementContext.TowerBlocks.ToListAsync();
         }
 
         public ParkingManagementContext ParkingManagementContext

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using ParkingManagement.Core;
 using ParkingManagement.Core.Model;
@@ -11,6 +11,7 @@ namespace ParkingManagement.Controllers
 {
     public class SlotrequestController : Controller
     {
+        log4net.ILog logger = log4net.LogManager.GetLogger(typeof(SlotrequestController));
         public SlotrequestController() { }
 
         private readonly IUnitOfWork _unitOfWork;
@@ -25,102 +26,117 @@ namespace ParkingManagement.Controllers
             return View();
         }
 
-       public ActionResult RequestView()
+        public async Task<ActionResult> RequestView()
         {
-            var requestnew = new RequestDetails();
-            requestnew.DurationList = _unitOfWork.RequestDuationTypes.GetRequestDurationType().ToList();
-            requestnew.TowerList = _unitOfWork.Tower.GetTowers().ToList();
-            var userid = Convert.ToInt32(Session["UserId"]);
-            requestnew.RegisterId = Convert.ToInt32(userid);
-            requestnew.FromDate = DateTime.Now;
-            requestnew.ToDate = DateTime.Now;
-            return View(requestnew);
+            try
+            {
+                var requestnew = new RequestDetails();
+                var lstduration = await _unitOfWork.RequestDuationTypes.GetRequestDurationType();
+                requestnew.DurationList = lstduration.ToList();
+                var listrequestnew = await _unitOfWork.Tower.GetTowers();
+                requestnew.TowerList = listrequestnew.ToList();
+                var userid = Convert.ToInt32(Session["UserId"]);
+                requestnew.RegisterId = Convert.ToInt32(userid);
+                requestnew.FromDate = DateTime.Now;
+                requestnew.ToDate = DateTime.Now;
+                return View(requestnew);
+            }
+            catch (Exception ex)
+            {
+                logger.Info("RequestView error : " + ex);
+                logger.Debug(ex);
+                return View("Error");
+            }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult SaveRequestView(RequestDetails reqObj)
         {
-            var UserId = Convert.ToInt32(Session["UserId"]);
-            _unitOfWork.RequestDetails.Add(new RequestDetails()
+            try
             {
-                RegisterId = Convert.ToInt32(UserId),
-                DurationId = reqObj.DurationId,
-                FromDate = reqObj.FromDate,
-                ToDate = reqObj.ToDate,
-                PreferenceOneTowerId = reqObj.PreferenceOneTowerId,
-                PreferenceTwoTowerId = reqObj.PreferenceTwoTowerId,
-                PreferenceThreeTowerId = reqObj.PreferenceThreeTowerId
+                if (ModelState.IsValid)
+                {
+                    var UserId = Convert.ToInt32(Session["UserId"]);
+                    _unitOfWork.RequestDetails.Add(new RequestDetails()
+                    {
+                        RegisterId = Convert.ToInt32(UserId),
+                        DurationId = reqObj.DurationId,
+                        FromDate = reqObj.FromDate,
+                        ToDate = reqObj.ToDate,
+                        PreferenceOneTowerId = reqObj.PreferenceOneTowerId,
+                        PreferenceTwoTowerId = reqObj.PreferenceTwoTowerId,
+                        PreferenceThreeTowerId = reqObj.PreferenceThreeTowerId
 
-            });
-            _unitOfWork.Complete();
-            return Redirect("/Home/HomePage");
+                    });
+                    _unitOfWork.Complete();
+                }
+                return Redirect("/Home/HomePage");
+            }
+            catch (Exception ex)
+            {
+                logger.Info("SaveRequestView error : " + ex);
+                logger.Debug(ex);
+                return View("Error");
+            }
         }
 
         public ActionResult DeleteView(int id)
         {
-            var req = _unitOfWork.RequestDetails.Get(id);
-            _unitOfWork.RequestDetails.Remove(req);
-            _unitOfWork.Complete();
-            return Redirect("/Home/HomePage");
+            try
+            {
+                var req = _unitOfWork.RequestDetails.Get(id);
+                _unitOfWork.RequestDetails.Remove(req);
+                _unitOfWork.Complete();
+                return Redirect("/Home/HomePage");
+            }
+            catch (Exception ex)
+            {
+                logger.Info("DeleteView error : " + ex);
+                logger.Debug(ex);
+                return View("Error");
+            }
         }
-        public ActionResult Surrenderview()
+        public async Task<ActionResult> Surrenderview()
         {
-            HomePage obj = new HomePage();
-            var UserId = Convert.ToInt32(Session["UserId"]);
-            obj.ParkingAllocatin = _unitOfWork.ParkingAllocation.GetParkingAllocations().Where(c => c.RegisterId == Convert.ToInt32(UserId) && c.IsSurrender == false).ToList();
-            return View(obj);
+            try
+            {
+                HomePage obj = new HomePage();
+                var UserId = Convert.ToInt32(Session["UserId"]);
+                var parkingObj = await _unitOfWork.ParkingAllocation.GetParkingAllocations();
+                List<ParkingAllocation> lstObj = parkingObj.ToList();
+                obj.ParkingAllocatin = lstObj.Where(c => c.RegisterId == Convert.ToInt32(UserId) && c.IsSurrender == false).ToList();
+                return View(obj);
+            }
+            catch (Exception ex)
+            {
+                logger.Info("Surrender error : " + ex);
+                logger.Debug(ex);
+                return View("Error");
+            }
         }
 
         public ActionResult UpdateSurrender(int id)
         {
-            var RoleList = _unitOfWork.ParkingAllocation.Get(id);
-            using (var db = new ParkingManagementContext())
+            try
             {
-                var obj = db.ParkingAllocations.Where(c => c.ParkingAllocationId == id).FirstOrDefault();
-                obj.IsSurrender = true;
-                db.SaveChanges();
-            }
-                if (HttpContext.Request.IsAjaxRequest())
-                return Json("Success", JsonRequestBehavior.AllowGet);
-            return RedirectToAction("Surrenderview");
-        }
-        /// <summary>
-        /// old request methods
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult RaiseRequest()
-        {
-            var slotrequest = new SlotRequestDeatils();
-            slotrequest.DurationList = _unitOfWork.RequestDuationTypes.GetRequestDurationType().ToList();
-            slotrequest.TowerList = _unitOfWork.Tower.GetTowers().ToList();
-            slotrequest.TowerBlockList = _unitOfWork.TowerBlock.GetTowerBlocks().ToList();
-            slotrequest.TowerBlockSlotList = _unitOfWork.TowerBlockSlot.GetTowerBlockSlots().ToList();
-            slotrequest.RegisterId = Convert.ToInt32(Session["UserId"]);
-
-            return View(slotrequest);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult SaveRequest(SlotRequestDeatils slotObj)
-        {
-            if (ModelState.IsValid)
-            {
-                var UserId = Convert.ToInt32(Session["UserId"]);
-                _unitOfWork.slotRequestDetails.Add(new SlotRequestDeatils()
+                var RoleList = _unitOfWork.ParkingAllocation.Get(id);
+                using (var db = new ParkingManagementContext())
                 {
-                    RegisterId = Convert.ToInt32(UserId),
-                    DurationId = slotObj.DurationId,
-                    TowerId = slotObj.TowerId,
-                    TowerBlockId = slotObj.TowerBlockId,
-                    TowerBlockSlotId = slotObj.TowerBlockSlotId,
-                    Remarks = slotObj.Remarks,
-                    EmployeeName = Session["Username"].ToString()
-                });
-                _unitOfWork.Complete();
+                    var obj = db.ParkingAllocations.Where(c => c.ParkingAllocationId == id).FirstOrDefault();
+                    obj.IsSurrender = true;
+                    db.SaveChanges();
+                }
+                if (HttpContext.Request.IsAjaxRequest())
+                    return Json("Success", JsonRequestBehavior.AllowGet);
+                return RedirectToAction("Surrenderview");
             }
-                return Redirect("/Home/HomePage");
+            catch (Exception ex)
+            {
+                logger.Info("UpdateSurrender error : " + ex);
+                logger.Debug(ex);
+                return View("Error");
+            }
         }
 
 

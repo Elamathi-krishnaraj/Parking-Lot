@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using ParkingManagement.Core.Model;
 using ParkingManagement.Core.Repositories;
+using System.Threading.Tasks;
 
 namespace ParkingManagement.Persistence.Repositories
 {
@@ -13,9 +12,9 @@ namespace ParkingManagement.Persistence.Repositories
             : base(context)
         {
         }
-        public IEnumerable<RequestDurationType> GetRequestDurationType()
+        public async Task<IEnumerable<RequestDurationType>> GetRequestDurationType()
         {
-            return ParkingManagementContext.RequestDurationTypes.ToList();
+            return await ParkingManagementContext.RequestDurationTypes.ToListAsync();
         }
 
         public ParkingManagementContext ParkingManagementContext

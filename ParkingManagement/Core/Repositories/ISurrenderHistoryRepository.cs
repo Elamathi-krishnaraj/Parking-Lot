@@ -9,6 +9,6 @@ namespace ParkingManagement.Core.Repositories
 {
     public interface ISurrenderHistoryRepository : IRepository<SurrenderHistory>
     {
-        IEnumerable<SurrenderHistory> GetSurrenderHistories();
+        Task<IEnumerable<SurrenderHistory>> GetSurrenderHistories();
     }
 }
