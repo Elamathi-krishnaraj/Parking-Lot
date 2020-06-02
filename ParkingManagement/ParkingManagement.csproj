@@ -240,6 +240,7 @@
     <Compile Include="Core\Model\Tower.cs" />
     <Compile Include="Core\Model\TowerBlock.cs" />
     <Compile Include="Core\Model\TowerBlockSlot.cs" />
+    <Compile Include="Core\Model\TowerParkingSlot.cs" />
     <Compile Include="Core\Model\UserRoles.cs" />
     <Compile Include="Core\Repositories\IParkingAllocationRepository.cs" />
     <Compile Include="Core\Repositories\IRegisterRepository.cs" />
@@ -252,6 +253,7 @@
     <Compile Include="Core\Repositories\ISurrenderHistoryRepository.cs" />
     <Compile Include="Core\Repositories\ITowerBlockRepository.cs" />
     <Compile Include="Core\Repositories\ITowerBlockSlotRepository.cs" />
+    <Compile Include="Core\Repositories\ITowerParkingSlotRepository.cs" />
     <Compile Include="Core\Repositories\ITowerRepository.cs" />
     <Compile Include="DependencyResolution\ControllerConvention.cs" />
     <Compile Include="DependencyResolution\DefaultRegistry.cs" />
@@ -317,6 +319,34 @@
     <Compile Include="Migrations\202006012009214_SurrenderTable.designer.cs">
       <DependentUpon>202006012009214_SurrenderTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006020520241_TowertoslotTable.cs" />
+    <Compile Include="Migrations\202006020520241_TowertoslotTable.designer.cs">
+      <DependentUpon>202006020520241_TowertoslotTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006020522265_TowerSlotData.cs" />
+    <Compile Include="Migrations\202006020522265_TowerSlotData.designer.cs">
+      <DependentUpon>202006020522265_TowerSlotData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006020540021_RemoveSurrenderFK.cs" />
+    <Compile Include="Migrations\202006020540021_RemoveSurrenderFK.designer.cs">
+      <DependentUpon>202006020540021_RemoveSurrenderFK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006020548363_RemovedAllFKinSurrender.cs" />
+    <Compile Include="Migrations\202006020548363_RemovedAllFKinSurrender.designer.cs">
+      <DependentUpon>202006020548363_RemovedAllFKinSurrender.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006020550153_AddedTowerSlotFK.cs" />
+    <Compile Include="Migrations\202006020550153_AddedTowerSlotFK.designer.cs">
+      <DependentUpon>202006020550153_AddedTowerSlotFK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006020559072_SurrenderFK.cs" />
+    <Compile Include="Migrations\202006020559072_SurrenderFK.designer.cs">
+      <DependentUpon>202006020559072_SurrenderFK.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006020601583_AddedFKToParkingslot.cs" />
+    <Compile Include="Migrations\202006020601583_AddedFKToParkingslot.designer.cs">
+      <DependentUpon>202006020601583_AddedFKToParkingslot.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\ParkingManagementContext.cs" />
     <Compile Include="Persistence\Repositories\ParkingAllocationRepository.cs" />
@@ -330,6 +360,7 @@
     <Compile Include="Persistence\Repositories\SurrenderHistoryRepository.cs" />
     <Compile Include="Persistence\Repositories\TowerBlockRepository.cs" />
     <Compile Include="Persistence\Repositories\TowerBlockSlotRepository.cs" />
+    <Compile Include="Persistence\Repositories\TowerParkingSlotRepository.cs" />
     <Compile Include="Persistence\Repositories\TowerRepository.cs" />
     <Compile Include="Persistence\UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -572,6 +603,7 @@
     <Content Include="Views\Slotrequest\RaiseRequest.cshtml" />
     <Content Include="Views\Slotrequest\RequestView.cshtml" />
     <Content Include="Views\Home\LotteryList.cshtml" />
+    <Content Include="Views\Slotrequest\Surrenderview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -649,6 +681,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006012009214_SurrenderTable.resx">
       <DependentUpon>202006012009214_SurrenderTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006020520241_TowertoslotTable.resx">
+      <DependentUpon>202006020520241_TowertoslotTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006020522265_TowerSlotData.resx">
+      <DependentUpon>202006020522265_TowerSlotData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006020540021_RemoveSurrenderFK.resx">
+      <DependentUpon>202006020540021_RemoveSurrenderFK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006020548363_RemovedAllFKinSurrender.resx">
+      <DependentUpon>202006020548363_RemovedAllFKinSurrender.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006020550153_AddedTowerSlotFK.resx">
+      <DependentUpon>202006020550153_AddedTowerSlotFK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006020559072_SurrenderFK.resx">
+      <DependentUpon>202006020559072_SurrenderFK.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006020601583_AddedFKToParkingslot.resx">
+      <DependentUpon>202006020601583_AddedFKToParkingslot.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

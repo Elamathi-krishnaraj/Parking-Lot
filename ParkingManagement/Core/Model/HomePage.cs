@@ -10,6 +10,8 @@ namespace ParkingManagement.Core.Model
     public class HomePage
     {
         public ICollection<RequestDetails> RequestList { get; set; }
+        public ICollection<SurrenderHistory> SurrederHistory { get; set; }
+        public ICollection<ParkingAllocation> ParkingAllocatin { get; set; }
 
         public  int UserId { get; set; }
         public string UserName { get; set; }

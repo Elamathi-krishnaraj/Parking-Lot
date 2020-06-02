@@ -1,0 +1,67 @@
+﻿@model ParkingManagement.Core.Model.HomePage
+
+@{
+    ViewBag.Title = "Surrenderview";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <div>
+            <h3>Parking Allocation List</h3>
+        </div>
+        <br />
+        <br />
+        <div>
+            @if (Model.ParkingAllocatin.Count() > 0)
+            {
+                <table style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%;">
+                    <tr>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Id</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Duration</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">From Date</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">To Date</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Parking Slot</th>
+                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Cancel</th>
+                    </tr>
+                    <tbody>
+                        @foreach (var item in Model.ParkingAllocatin)
+                        {
+                            <tr>
+                                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">@item.ParkingAllocationId</td>
+                                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">@item.RequestDurationType.DurationDescription</td>
+                                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">@item.FromDate</td>
+                                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">@item.ToDate</td>
+                                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">@item.TowerParkingSlot.Tower.TowerDescription - @item.TowerParkingSlot.ParkingSlot.SlotDescription</td>
+                                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;"><input type="button" value="Surrender" onclick="SurrenderClick(@item.ParkingAllocationId)" /></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <h4>No Record found</h4>
+            }
+        </div>
+        <br />
+            <input type="button" value="Cancel" onclick="@("window.location.href='" + @Url.Action("HomePage", "Home") + "'");" />
+    </div>
+
+
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        function SurrenderClick(req_id) {
+            if (confirm(" Are you sure?")) {
+            window.location.href = "@Url.Action("UpdateSurrender", "Slotrequest")?id=" + req_id;
+            }
+        }
+    </script>
+}
+
+

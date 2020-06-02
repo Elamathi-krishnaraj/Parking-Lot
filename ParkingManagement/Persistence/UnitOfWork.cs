@@ -20,6 +20,8 @@ namespace ParkingManagement.Persistence
             RequestDetails = new RequestDetailsRepository(_parkingManagementContext);
             ParkingAllocation = new ParkingAllocationRepository(_parkingManagementContext);
             SurrenderHistory = new SurrenderHistoryRepository(_parkingManagementContext);
+            TowerParkingSlot = new TowerParkingSlotRepository(_parkingManagementContext);
+
 
 
             TowerBlock = new TowerBlockRepository(_parkingManagementContext);
@@ -35,6 +37,7 @@ namespace ParkingManagement.Persistence
         public IRequestDetailsRepository RequestDetails { get; private set; }
         public IParkingAllocationRepository ParkingAllocation { get; private set; }
         public ISurrenderHistoryRepository SurrenderHistory { get; private set; }
+        public ITowerParkingSlotRepository TowerParkingSlot { get; private set; }
 
 
         public ITowerBlockRepository TowerBlock { get; private set; }

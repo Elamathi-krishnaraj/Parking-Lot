@@ -64,7 +64,27 @@ namespace ParkingManagement.Controllers
             _unitOfWork.Complete();
             return Redirect("/Home/HomePage");
         }
+        public ActionResult Surrenderview()
+        {
+            HomePage obj = new HomePage();
+            var UserId = Convert.ToInt32(Session["UserId"]);
+            obj.ParkingAllocatin = _unitOfWork.ParkingAllocation.GetParkingAllocations().Where(c => c.RegisterId == Convert.ToInt32(UserId) && c.IsSurrender == false).ToList();
+            return View(obj);
+        }
 
+        public ActionResult UpdateSurrender(int id)
+        {
+            var RoleList = _unitOfWork.ParkingAllocation.Get(id);
+            using (var db = new ParkingManagementContext())
+            {
+                var obj = db.ParkingAllocations.Where(c => c.ParkingAllocationId == id).FirstOrDefault();
+                obj.IsSurrender = true;
+                db.SaveChanges();
+            }
+                if (HttpContext.Request.IsAjaxRequest())
+                return Json("Success", JsonRequestBehavior.AllowGet);
+            return RedirectToAction("Surrenderview");
+        }
         /// <summary>
         /// old request methods
         /// </summary>

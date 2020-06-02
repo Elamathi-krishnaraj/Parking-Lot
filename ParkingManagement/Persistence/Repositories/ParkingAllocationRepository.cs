@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using ParkingManagement.Core.Model;
 using ParkingManagement.Core.Repositories;
+using System.Data.Entity;
 
 namespace ParkingManagement.Persistence.Repositories
 {
@@ -15,7 +16,13 @@ namespace ParkingManagement.Persistence.Repositories
         }
         public IEnumerable<ParkingAllocation> GetParkingAllocations()
         {
-            return ParkingManagementContext.ParkingAllocations.ToList();
+            return ParkingManagementContext.ParkingAllocations
+                .Include(c => c.RequestDurationType)
+                .Include(c=>c.TowerParkingSlot)
+                .Include(c=>c.TowerParkingSlot.Tower)
+                .Include(c=>c.TowerParkingSlot.ParkingSlot)
+                .Include(c=>c.Registers)
+                .ToList();
         }
 
         public ParkingManagementContext ParkingManagementContext

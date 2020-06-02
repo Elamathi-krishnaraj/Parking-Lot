@@ -13,6 +13,7 @@ namespace ParkingManagement.Core
         IRequestDetailsRepository RequestDetails { get; }
         IParkingAllocationRepository ParkingAllocation { get; }
         ISurrenderHistoryRepository SurrenderHistory { get; }
+        ITowerParkingSlotRepository TowerParkingSlot { get; }
 
 
         ITowerBlockRepository TowerBlock { get; }

@@ -24,13 +24,13 @@ namespace ParkingManagement.Core.Model
 
         public DateTime ToDate { get; set; }
 
-        public int TowerId { get; set; }
-        [ForeignKey("TowerId")]
-        public Tower Tower { get; set; }
+        //public int TowerId { get; set; }
+        //[ForeignKey("TowerId")]
+        //public Tower Tower { get; set; }
 
-        public int ParkingSlotId { get; set; }
-        [ForeignKey("ParkingSlotId")]
-        public ParkingSlot ParkingSlot { get; set; }
+        public int TowerParkingSlotId { get; set; }
+        [ForeignKey("TowerParkingSlotId")]
+        public TowerParkingSlot TowerParkingSlot { get; set; }
 
         public bool IsSurrender { get; set; }
         public bool IsExpires { get; set; }

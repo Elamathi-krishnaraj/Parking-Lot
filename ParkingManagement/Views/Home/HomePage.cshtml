@@ -14,12 +14,8 @@
             <h3>Dashboard</h3>
         </div>
         <hr />
-        <div><h4>Welcome @Model.UserName</h4></div>
+        <div><h4>Welcome @Model.UserName Your Role Type - @Model.RoleName</h4></div>
         <br />
-        <br />
-        <div>
-            <h4>Your Role Type - @Model.RoleName</h4>
-        </div>
         <br />
         <div>
             @if (Model.RequestList.Count() > 0)
@@ -65,7 +61,8 @@
         }
         else
         {
-            <input type="button" value="Raise Request" onclick="@("window.location.href='" + @Url.Action("RequestView", "Slotrequest") + "'");" />
+            <input type="button" value="Raise New Request" onclick="@("window.location.href='" + @Url.Action("RequestView", "Slotrequest") + "'");" />
+            <input type="button" value="Surrender Parking Slot" onclick="@("window.location.href='" + @Url.Action("Surrenderview", "Slotrequest") + "'");" />
 
         }
 
