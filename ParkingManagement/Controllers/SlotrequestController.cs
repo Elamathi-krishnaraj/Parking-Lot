@@ -50,7 +50,6 @@ namespace ParkingManagement.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult SaveRequestView(RequestDetails reqObj)
         {
             try
@@ -71,6 +70,8 @@ namespace ParkingManagement.Controllers
                     });
                     _unitOfWork.Complete();
                 }
+                if (HttpContext.Request.IsAjaxRequest())
+                    return Json("Success", JsonRequestBehavior.AllowGet);
                 return Redirect("/Home/HomePage");
             }
             catch (Exception ex)

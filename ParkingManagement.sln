@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.1082
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingManagement", "ParkingManagement\ParkingManagement.csproj", "{AFE2159C-5E62-4FA5-8880-B0888721FBAF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkingManagementTest", "ParkingManagementTest\ParkingManagementTest.csproj", "{79E66EA0-A95F-4265-B349-871DF5B47DE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{AFE2159C-5E62-4FA5-8880-B0888721FBAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFE2159C-5E62-4FA5-8880-B0888721FBAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFE2159C-5E62-4FA5-8880-B0888721FBAF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79E66EA0-A95F-4265-B349-871DF5B47DE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79E66EA0-A95F-4265-B349-871DF5B47DE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79E66EA0-A95F-4265-B349-871DF5B47DE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79E66EA0-A95F-4265-B349-871DF5B47DE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Mvc;
+﻿using System.Linq;
 using System.Web.Http;
-using ParkingManagement.Core;
 using ParkingManagement.Core.Model;
 using ParkingManagement.Persistence;
 using System.Data.Entity;
+
 
 namespace ParkingManagement.Controllers.Api
 {
@@ -19,7 +14,8 @@ namespace ParkingManagement.Controllers.Api
         public EmployeeSlotController() {
             _context = new ParkingManagementContext();
         }
-        // GET /api/
+        [CacheFiltercs(TimeDuration = 300 )]
+        // GET /api/EmployeeSlot
         public IHttpActionResult GetEmployeeSlot()
         {
 
@@ -28,6 +24,16 @@ namespace ParkingManagement.Controllers.Api
                 .Include(c => c.RequestDurationType)
                 .ToList();
             return Ok(resultlistQuery);
+        }
+
+
+        // GET /api/EmployeeSlot/id
+        public IHttpActionResult GetEmployeeSlot(int id)
+        {
+            if (id == 0)
+                return NotFound();
+
+            return Ok();
         }
     }
 }

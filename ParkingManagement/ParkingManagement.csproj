@@ -232,6 +232,7 @@
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Core\DTOModel\RegisterDTO.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
+    <Compile Include="Core\Model\CacheFiltercs.cs" />
     <Compile Include="Core\Model\HomePage.cs" />
     <Compile Include="Core\Model\ParkingAllocation.cs" />
     <Compile Include="Core\Model\ParkingSlot.cs" />
