@@ -24,8 +24,11 @@ namespace ParkingManagement.Core.Model
         [NotMapped]
         public ICollection<RequestDurationType> DurationList { get; set; }
 
+
+        [Display(Name = "From Date")]
         public DateTime FromDate { get; set; }
 
+        [Display(Name = "To Date")]
         public DateTime ToDate { get; set; }
 
         [Display(Name = "Preference One")]

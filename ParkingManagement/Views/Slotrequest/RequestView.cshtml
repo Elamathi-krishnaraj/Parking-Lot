@@ -4,7 +4,7 @@
     ViewBag.Title = "RequestView";
 }
 
-<h2>RequestView</h2>
+
 
 
 @using (Html.BeginForm("SaveRequestView", "Slotrequest", FormMethod.Post, new { @class = "form-horizontal" }))
@@ -12,7 +12,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>RequestDetails</h4>
+        <h4>New Request</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -78,4 +78,41 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+<script>
+    $(document).ready(function () {
+        $("#FromDate").val("");
+        $("#ToDate").val("");
+    });
+    $("#DurationId").change(function (val) {
+        optionselected = $(this).val();
+        var myDate = new Date();
+        myDate.setDate(myDate.getDate() + 1);
+        // format a date
+        var dt = myDate.getDate() + '/' + ("0" + (myDate.getMonth() + 1)).slice(-2) + '/' + myDate.getFullYear();
+
+        if (optionselected == "1") {
+            $("#FromDate").val(dt);
+            $("#ToDate").val(dt);
+        } else if (optionselected == "2") {
+            myDate.setDate(myDate.getDate() + 6);
+            // format a date
+            var todt = myDate.getDate() + '/' + ("0" + (myDate.getMonth() + 1)).slice(-2) + '/' + myDate.getFullYear();
+            $("#FromDate").val(dt);
+            $("#ToDate").val(todt);
+        } else if (optionselected == "3") {
+            myDate.setDate(myDate.getDate() + 30);
+            // format a date
+            var todt = myDate.getDate() + '/' + ("0" + (myDate.getMonth() + 1)).slice(-2) + '/' + myDate.getFullYear();
+            $("#FromDate").val(dt);
+            $("#ToDate").val(todt);
+        }
+    });
+    $("#PreferenceOneTowerId").change(function (val) {
+        //$("#PreferenceTwoTowerId option[value='" + $(this).val() +"']").remove();
+        //$("#PreferenceThreeTowerId option[value='" + $(this).val() +"']").remove();
+    });
+    $("#PreferenceTwoTowerId").change(function (val) {
+        //$("#PreferenceThreeTowerId option[value='" + $(this).val() + "']").remove();
+    });
+    </script>
 }

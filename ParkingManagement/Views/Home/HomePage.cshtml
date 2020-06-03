@@ -20,33 +20,35 @@
         <div>
             @if (Model.RequestList.Count() > 0)
             {
-                <table style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%;">
-                    <tr>
-                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Id</th>
-                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Duration</th>
-                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">From Date</th>
-                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">To Date</th>
-                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Preference 1</th>
-                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Preference 2</th>
-                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Preference 3</th>
-                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Cancel</th>
+            <table id="requesttblid" class="table table-bordered table-hover">
+                <thead>
+                    <tr style="background-color:lavender">
+                        <th>Id</th>
+                        <th>Duration</th>
+                        <th>From Date</th>
+                        <th>To Date</th>
+                        <th>Preference 1</th>
+                        <th>Preference 2</th>
+                        <th>Preference 3</th>
+                        <th>Cancel</th>
                     </tr>
-                    <tbody>
-                        @foreach (var item in Model.RequestList)
-                        {
-                        <tr>
-                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">@item.RequestDetailsId</td>
-                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">@item.RequestDurationType.DurationDescription</td>
-                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">@item.FromDate</td>
-                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">@item.ToDate</td>
-                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Tower - @item.PreferenceOneTowerId</td>
-                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Tower - @item.PreferenceTwoTowerId</td>
-                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Tower - @item.PreferenceThreeTowerId</td>
-                            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;"><input type="button" value="Cancel Request" onclick="DeleteClick(@item.RequestDetailsId)" /></td>
-                        </tr>
-                        }
-                    </tbody>
-                </table>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.RequestList)
+                    {
+                    <tr>
+                        <td>@item.RequestDetailsId</td>
+                        <td>@item.RequestDurationType.DurationDescription</td>
+                        <td>@item.FromDate</td>
+                        <td>@item.ToDate</td>
+                        <td>Tower - @item.PreferenceOneTowerId</td>
+                        <td>Tower - @item.PreferenceTwoTowerId</td>
+                        <td>Tower - @item.PreferenceThreeTowerId</td>
+                        <td><input type="button" value="Cancel Request" onclick="DeleteClick(@item.RequestDetailsId)" /></td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
             }
             else
             {
@@ -56,13 +58,13 @@
         <br />
         @if (Model.RoleName.ToString() == "Admin")
         {
-            <input type="button" value="Go To Lottery" onclick="@("window.location.href='" + @Url.Action("LotteryList", "Home") + "'");" />
+            <input type="button" class="btn-success" value="Go To Lottery" onclick="@("window.location.href='" + @Url.Action("LotteryList", "Home") + "'");" />
             @*<input type="submit" value="Go To Lottery" class="btn btn-default" />*@
         }
         else
         {
-            <input type="button" value="Raise New Request" onclick="@("window.location.href='" + @Url.Action("RequestView", "Slotrequest") + "'");" />
-            <input type="button" value="Surrender Parking Slot" onclick="@("window.location.href='" + @Url.Action("Surrenderview", "Slotrequest") + "'");" />
+            <input type="button" value="Raise New Request" class="btn-success" onclick="@("window.location.href='" + @Url.Action("RequestView", "Slotrequest") + "'");" />
+            <input type="button" value="Surrender Parking Slot" class="btn-success" onclick="@("window.location.href='" + @Url.Action("Surrenderview", "Slotrequest") + "'");" />
 
         }
 
@@ -74,6 +76,9 @@
 @section scripts{
     @Scripts.Render("~/bundles/jqueryval")
     <script>
+        $(document).ready(function () {
+            $('#requesttblid').DataTable();
+        });
         function DeleteClick(req_id) {
             if (confirm(" Are you sure?")) {
             window.location.href = "@Url.Action("DeleteView", "Slotrequest")?id=" + req_id;

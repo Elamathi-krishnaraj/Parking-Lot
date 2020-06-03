@@ -17,25 +17,28 @@
         <div>
             @if (Model.ParkingAllocatin.Count() > 0)
             {
-                <table style="font-family: arial, sans-serif; border-collapse: collapse; width: 100%;">
-                    <tr>
-                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Id</th>
-                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Duration</th>
-                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">From Date</th>
-                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">To Date</th>
-                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Parking Slot</th>
-                        <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Cancel</th>
-                    </tr>
+
+                <table id="surrenderid" class="table table-bordered table-hover">
+                    <thead>
+                        <tr style="background-color:lavender">
+                            <th>Id</th>
+                            <th>Duration</th>
+                            <th>From Date</th>
+                            <th>To Date</th>
+                            <th>Parking Slot</th>
+                            <th>Cancel</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         @foreach (var item in Model.ParkingAllocatin)
                         {
                             <tr>
-                                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">@item.ParkingAllocationId</td>
-                                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">@item.RequestDurationType.DurationDescription</td>
-                                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">@item.FromDate</td>
-                                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">@item.ToDate</td>
-                                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;">@item.TowerParkingSlot.Tower.TowerDescription - @item.TowerParkingSlot.ParkingSlot.SlotDescription</td>
-                                <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;"><input type="button" value="Surrender" onclick="SurrenderClick(@item.ParkingAllocationId)" /></td>
+                                <td>@item.ParkingAllocationId</td>
+                                <td>@item.RequestDurationType.DurationDescription</td>
+                                <td>@item.FromDate</td>
+                                <td>@item.ToDate</td>
+                                <td>@item.TowerParkingSlot.Tower.TowerDescription - @item.TowerParkingSlot.ParkingSlot.SlotDescription</td>
+                                <td><input type="button" value="Surrender" onclick="SurrenderClick(@item.ParkingAllocationId)" /></td>
                             </tr>
                         }
                     </tbody>
@@ -47,7 +50,7 @@
             }
         </div>
         <br />
-            <input type="button" value="Cancel" onclick="@("window.location.href='" + @Url.Action("HomePage", "Home") + "'");" />
+            <input type="button" class="btn-primary" value="Cancel" onclick="@("window.location.href='" + @Url.Action("HomePage", "Home") + "'");" />
     </div>
 
 
@@ -56,6 +59,9 @@
 @section scripts{
     @Scripts.Render("~/bundles/jqueryval")
     <script>
+        $(document).ready(function () {
+            $('#surrenderid').DataTable();
+        });
         function SurrenderClick(req_id) {
             if (confirm(" Are you sure?")) {
             window.location.href = "@Url.Action("UpdateSurrender", "Slotrequest")?id=" + req_id;
