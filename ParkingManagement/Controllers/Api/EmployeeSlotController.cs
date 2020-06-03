@@ -3,7 +3,7 @@ using System.Web.Http;
 using ParkingManagement.Core.Model;
 using ParkingManagement.Persistence;
 using System.Data.Entity;
-
+using System.Web.Mvc;
 
 namespace ParkingManagement.Controllers.Api
 {
@@ -27,13 +27,13 @@ namespace ParkingManagement.Controllers.Api
         }
 
 
-        // GET /api/EmployeeSlot/id
-        public IHttpActionResult GetEmployeeSlot(int id)
-        {
-            if (id == 0)
-                return NotFound();
+        //// GET /api/EmployeeSlot/id
+        //public IHttpActionResult GetEmployeeSlot(int id)
+        //{
+        //    if (id == 0)
+        //        return NotFound();
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
     }
 }

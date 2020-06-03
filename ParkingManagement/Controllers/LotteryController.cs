@@ -21,6 +21,7 @@ namespace ParkingManagement.Controllers
         {
             _unitOfWork = unitOfWork;
         }
+        [HttpPost]
         public async Task<ActionResult> RunLottery()
         {
             try
@@ -119,6 +120,8 @@ namespace ParkingManagement.Controllers
                     }
 
                 }
+                if (HttpContext.Request.IsAjaxRequest())
+                    return Json("Success", JsonRequestBehavior.AllowGet);
                 return Redirect("/Home/LotteryList");
             }
             catch (Exception ex)

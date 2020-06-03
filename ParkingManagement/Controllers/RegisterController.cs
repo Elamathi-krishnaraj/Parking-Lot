@@ -73,14 +73,15 @@ namespace ParkingManagement.Controllers
             return Redirect("/Register/Login");
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> ValidateLogin(Registers LoginUser)
         {
             try
             {
+                var isValidUser = false;
                 var loginuser = await _unitOfWork.Registers.ValidateLogin(LoginUser);
                 if (loginuser != null)
                 {
+                    isValidUser = true;
                     Session["Username"] = loginuser.UserName;
                     Session["UserId"] = loginuser.RegisterId;
                     if (loginuser.RoleId == 1)
@@ -88,6 +89,9 @@ namespace ParkingManagement.Controllers
                     else
                         Session["Role"] = "User";
                 }
+                
+                if (HttpContext.Request.IsAjaxRequest())
+                    return Json(isValidUser, JsonRequestBehavior.AllowGet);
                 return Redirect("/Home/HomePage");
             }
             catch (Exception ex)

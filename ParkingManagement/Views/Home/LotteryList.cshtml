@@ -23,7 +23,8 @@
 </div>
 <br />
 <div>
-    <input type="button" value="Run Lottery" class="btn-success" onclick="@("window.location.href='" + @Url.Action("RunLottery", "Lottery") + "'");" />
+    <input id="urlPathid" type="hidden" value="@Url.Action("RunLottery", "Lottery")" />
+    <input type="button" value="Run Lottery" class="btn-success" id="btnrunlottery" onclick="runlottery();" />
     <input type="button" value="Back" class="btn-danger" onclick="@("window.location.href='" + @Url.Action("HomePage", "Home") + "'");" />
 
 </div>
@@ -32,7 +33,6 @@
     {
     <script>
         $(document).ready(function () {
-            //debugger;
             var table = $("#customers").DataTable({
                 ajax: {
                     url: "http://localhost:52918/api/employeeslot",
@@ -63,6 +63,24 @@
                 ]
             });
         });
+        function runlottery() {
+            var urlpath = $("#urlPathid").val();
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                url: urlpath,
+                dataType: "json",
+                async: true,
+                success: function (data) {
+                    alert("Parking Slot as been assigned to user as by lottery system!!!");//never returned
+                    location.reload();
+
+                },
+                error: function (err) {
+                    alert("Lottery based alllocation failed");//always return this one, even it's succeed
+                }
+            });
+        }
     </script>
 }
 

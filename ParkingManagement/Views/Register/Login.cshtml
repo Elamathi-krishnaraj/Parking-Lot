@@ -1,7 +1,7 @@
 ﻿@model ParkingManagement.Core.Model.Registers
 
 
-@using (Html.BeginForm("ValidateLogin", "Register", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     @Html.AntiForgeryToken()
 
@@ -29,16 +29,51 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Login" class="btn btn-default" />
+                <input id="urlPathid" type="hidden" value="@Url.Action("ValidateLogin", "Register")" />
+                <input type="submit" value="Login" id="btnlogin" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
-@*<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>*@
-
-@section Scripts {
+@section scripts{
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("#btnlogin").click(function (e) {
+            e.preventDefault();
+            var _this = $(this);
+            var _form = _this.closest("form");
+            var isvalid = _form.valid();
+
+            if (isvalid == true) {
+                var Registers = {
+                    UserName: $("#UserName").val(),
+                    Password: $("#Password").val(),
+                };
+                var urlpath = $("#urlPathid").val();
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: urlpath,
+                    data: JSON.stringify(Registers),
+                    dataType: "json",
+                    async: true,
+                    success: function (data) {
+                        if (data == true) {
+                            alert("Login Success!!!");//never returned
+                            window.location.href = "@Url.Action("HomePage", "Home")";
+                        } else {
+                            alert("Invalid user");
+                        }
+
+                    },
+                    error: function (err) {
+                        alert("Login In failed check your username and password");//always return this one, even it's succeed
+                    }
+                });
+            } else {
+                alert("Please fill the deatils!")
+            }
+        });
+    </script>
 }
