@@ -30,7 +30,7 @@ namespace ParkingManagement.Persistence
         }
 
         public IRegisterRepository Registers { get; private set; }
-        public IRoleRepository UserRoles { get; private set; }
+        public IRoleRepository UserRoles { get; set; }
         public IRequestDuationTypeRepository RequestDuationTypes { get; private set; }
         public ITowerRepository Tower { get; private set; }
         public IParkingSlotRepository ParkingSlot { get; private set; }

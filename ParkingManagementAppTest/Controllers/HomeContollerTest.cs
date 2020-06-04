@@ -1,4 +1,5 @@
-﻿using ParkingManagement.Core;
+﻿using System.Web;
+using ParkingManagement.Core;
 using ParkingManagement.Core.Model;
 using ParkingManagement.Core.Repositories;
 using ParkingManagement.Persistence;
@@ -42,18 +43,28 @@ namespace ParkingManagementAppTest.Controllers
         public void HomePage_ValidRequest_Returnshomepage()
         {
             // Arrange
+            var mockControllerContext = new Mock<ControllerContext>();
+            var mockSession = new Mock<HttpSessionStateBase>();
+            mockSession.SetupGet(s => s["UserId"]).Returns("1"); //somevalue
+            mockSession.SetupGet(s => s["Username"]).Returns("testname"); //somevalue
+            mockSession.SetupGet(s => s["Role"]).Returns("1"); //somevalue
+            mockControllerContext.Setup(p => p.HttpContext.Session).Returns(mockSession.Object);
+
+            var controller = new HomeController(_unitOfWork);
+            controller.ControllerContext = mockControllerContext.Object;
+            ////
             IList<RequestDetails> RequestList = null;
             _mockRequestDetailsRepository.Setup(x => x.GetRequestDetails())
                 .Returns(RequestList = new List<RequestDetails> {
                     new RequestDetails {
                         RegisterId=1, DurationId=1, FromDate= DateTime.Now,ToDate=DateTime.Now,PreferenceOneTowerId=1, PreferenceTwoTowerId=2,PreferenceThreeTowerId=3, RequestDetailsId=1 },
                     new RequestDetails {
-                        RegisterId=2, DurationId=1, FromDate= DateTime.Now,ToDate=DateTime.Now,PreferenceOneTowerId=1, PreferenceTwoTowerId=2,PreferenceThreeTowerId=3, RequestDetailsId=1 },
+                        RegisterId=1, DurationId=1, FromDate= DateTime.Now,ToDate=DateTime.Now,PreferenceOneTowerId=1, PreferenceTwoTowerId=2,PreferenceThreeTowerId=3, RequestDetailsId=1 },
                 });
 
 
             // Act
-            var result = _homecontroller.ResultPage(25);
+            var result = controller.HomePage();
 
 
             //// Assert

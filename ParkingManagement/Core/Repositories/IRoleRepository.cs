@@ -11,5 +11,6 @@ namespace ParkingManagement.Core.Repositories
     public interface IRoleRepository : IRepository<UserRoles>
     {
         Task<IEnumerable<UserRoles>> GetRoles();
+        IEnumerable<UserRoles> GetRoleslist();
     }
 }

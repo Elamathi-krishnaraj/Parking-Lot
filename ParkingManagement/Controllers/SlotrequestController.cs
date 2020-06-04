@@ -54,9 +54,10 @@ namespace ParkingManagement.Controllers
         {
             try
             {
+                var IsSaved = false;
                 if (ModelState.IsValid)
                 {
-                    var UserId = Convert.ToInt32(Session["UserId"]);
+                     var UserId = Convert.ToInt32(Session["UserId"]);
                     _unitOfWork.RequestDetails.Add(new RequestDetails()
                     {
                         RegisterId = Convert.ToInt32(UserId),
@@ -69,9 +70,11 @@ namespace ParkingManagement.Controllers
 
                     });
                     _unitOfWork.Complete();
+                    IsSaved = true;
                 }
+
                 if (HttpContext.Request.IsAjaxRequest())
-                    return Json("Success", JsonRequestBehavior.AllowGet);
+                    return Json(IsSaved, JsonRequestBehavior.AllowGet);
                 return Redirect("/Home/HomePage");
             }
             catch (Exception ex)
@@ -121,15 +124,17 @@ namespace ParkingManagement.Controllers
         {
             try
             {
+                var IsSaved = false;
                 var RoleList = _unitOfWork.ParkingAllocation.Get(id);
                 using (var db = new ParkingManagementContext())
                 {
                     var obj = db.ParkingAllocations.Where(c => c.ParkingAllocationId == id).FirstOrDefault();
                     obj.IsSurrender = true;
                     db.SaveChanges();
+                    IsSaved = true;
                 }
                 if (HttpContext.Request.IsAjaxRequest())
-                    return Json("Success", JsonRequestBehavior.AllowGet);
+                    return Json(IsSaved, JsonRequestBehavior.AllowGet);
                 return RedirectToAction("Surrenderview");
             }
             catch (Exception ex)

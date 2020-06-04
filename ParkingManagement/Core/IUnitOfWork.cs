@@ -6,7 +6,7 @@ namespace ParkingManagement.Core
     public interface IUnitOfWork : IDisposable
     {
         IRegisterRepository Registers { get; }
-        IRoleRepository UserRoles { get; }
+        IRoleRepository UserRoles { get; set; }
         IRequestDuationTypeRepository RequestDuationTypes { get; }
         ITowerRepository Tower { get; }
         IParkingSlotRepository ParkingSlot { get; }

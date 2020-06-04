@@ -29,35 +29,15 @@ namespace ParkingManagement.Controllers
 
             return View();
         }
-        public ViewResult ResultPage(int userid)
-        {
-            try
-            {
-                var homepage = new HomePage();
-                var UserId = Convert.ToInt32(userid);
-                var reqList = _unitOfWork.RequestDetails.GetRequestDetails();
-                List<RequestDetails> requestList = reqList.ToList();
-                homepage.RequestList = reqList.ToList();
-                homepage.UserId = Convert.ToInt32(UserId);
-                return View(homepage);
-            }
-            catch (Exception ex)
-            {
-                logger.Info("HomePage error : " + ex);
-                logger.Debug(ex);
-                return View("Error");
-            }
-        }
 
 
-        public  ViewResult HomePage(int userid)
+        public  ViewResult HomePage()
         {
             try
             {
                     var homepage = new HomePage();
-                    //var UserId = Convert.ToInt32(Session["UserId"]);
-                    var UserId = Convert.ToInt32(userid);
-                    var reqList = _unitOfWork.RequestDetails.GetRequestDetails();
+                    var UserId = Convert.ToInt32(Session["UserId"]);
+                    var reqList = _unitOfWork.RequestDetails.GetRequestDetails().ToList();
                     List<RequestDetails> requestList = reqList.ToList();
                     homepage.RequestList = reqList.Where(c => c.RegisterId == Convert.ToInt32(UserId)).ToList();
                     homepage.UserId = Convert.ToInt32(UserId);

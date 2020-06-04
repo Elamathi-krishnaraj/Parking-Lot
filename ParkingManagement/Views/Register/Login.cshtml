@@ -59,9 +59,9 @@
                     dataType: "json",
                     async: true,
                     success: function (data) {
-                        if (data != 0) {
+                        if (data == true) {
                             alert("Login Success!!!");//never returned
-                            window.location.href = "@Url.Action("HomePage", "Home")?userid=" + data;
+                            window.location.href = "@Url.Action("HomePage", "Home")";
                         } else {
                             alert("Invalid user");
                         }

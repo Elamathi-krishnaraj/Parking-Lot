@@ -62,8 +62,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script>
         function cancelclick(req_id) {
-             window.location.href = "@Url.Action("HomePage", "Home")?userid=" + req_id;
-
+             window.location.href = "@Url.Action("HomePage", "Home")";
         }
         $(document).ready(function () {
             $('#surrenderid').DataTable();

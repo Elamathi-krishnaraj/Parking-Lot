@@ -19,14 +19,12 @@ namespace ParkingManagement.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<ActionResult> Index()
+        public ViewResult Index()
         {
             try
             {
                 var register = new Registers();
-                var reg = await _unitOfWork.UserRoles.GetRoles();
-                register.RoleList = reg.ToList();
-
+                register.RoleList = _unitOfWork.UserRoles.GetRoleslist().ToList(); ;
                 return View(register);
             }
             catch (Exception ex)
@@ -41,6 +39,7 @@ namespace ParkingManagement.Controllers
         {
             try
             {
+                var IsSaved = false;
                 if (ModelState.IsValid)
                 {
                     _unitOfWork.Registers.Add(new Registers()
@@ -48,10 +47,14 @@ namespace ParkingManagement.Controllers
                         UserName = registerObj.UserName,
                         Password = registerObj.Password,
                         ConfirmPassword = registerObj.ConfirmPassword,
-                        RoleId = registerObj.RoleId
+                        RoleId = registerObj.RoleId,
+                        EmployeeName = registerObj.EmployeeName
                     });
                     _unitOfWork.Complete();
+                    IsSaved = true;
                 }
+                if (HttpContext.Request.IsAjaxRequest())
+                    return Json(IsSaved, JsonRequestBehavior.AllowGet);
                 return RedirectToAction("Login");
             }
             catch (Exception ex)
@@ -77,22 +80,23 @@ namespace ParkingManagement.Controllers
         {
             try
             {
-                var isValidUser = 0;
+                var isValidUser = false;
                 var loginuser = await _unitOfWork.Registers.ValidateLogin(LoginUser);
                 if (loginuser != null)
                 {
-                    isValidUser = loginuser.RegisterId;
                     Session["Username"] = loginuser.UserName;
                     Session["UserId"] = loginuser.RegisterId;
                     if (loginuser.RoleId == 1)
                         Session["Role"] = "Admin";
                     else
                         Session["Role"] = "User";
+
+                    isValidUser = true;
                 }
                 
                 if (HttpContext.Request.IsAjaxRequest())
                     return Json(isValidUser, JsonRequestBehavior.AllowGet);
-                return Redirect("/Home/HomePage/" + isValidUser);
+                return Redirect("/Home/HomePage");
             }
             catch (Exception ex)
             {

@@ -9,52 +9,61 @@
 <h2>Index</h2>
 
 
-@using (Html.BeginForm("RegisterSave", "Register", FormMethod.Post, new { @class = "form-horizontal" }))
+@using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal" }))
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Register</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.RoleId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(m => m.RoleId, new SelectList(Model.RoleList, "RoleId", "RoleName"), "Select one", new { @class = "form-control", id = "RoleId" })
-                @Html.ValidationMessageFor(m => m.RoleId, string.Empty, new { @class = "" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+<div class="form-horizontal">
+    <h4>Register</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EmployeeName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EmployeeName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.EmployeeName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.RoleId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.RoleId, new SelectList(Model.RoleList, "RoleId", "RoleName"), "Select one", new { @class = "form-control", id = "RoleId" })
+            @Html.ValidationMessageFor(m => m.RoleId, string.Empty, new { @class = "" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input id="urlPathid" type="hidden" value="@Url.Action("RegisterSave", "Register")" />
+            <input type="submit" value="Create" id="btncreate" class="btn btn-default" />
+        </div>
+    </div>
+</div>
 }
 
 @*<div>
@@ -65,21 +74,45 @@
 @section scripts{
     @Scripts.Render("~/bundles/jqueryval")
     <script>
-        //$(document).ready(function () {
+        $("#btncreate").click(function (e) {
+        e.preventDefault();
+        var _this = $(this);
+        var _form = _this.closest("form");
+        var isvalid = _form.valid();
 
-        //    var URL = '/Register/GetRoleList/';
-        //    $.getJSON(URL, function (data) {
-        //        var items = '<option value="">Select Role</option>';
-        //        $.each(data, function (i, role) {
-        //            items += "<option value='" + role.Value + "'>" + role.Text
-        //                + "</option>";
-        //        });
-        //        $('#RoleId').html(items);
-        //    });
-
-
-
-            
+        if (isvalid == true) {
+            var Registers = {
+                UserName: $("#UserName").val(),
+                Password: $("#Password").val(),
+                EmployeeName : $("#EmployeeName").val(),
+                ConfirmPassword: $("#ConfirmPassword").val(),
+                RoleId: $("#RoleId option:selected").val(),
+            }; 
+            //var formobj = $("#formsaveid").serialize();
+            var urlpath = $("#urlPathid").val();
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                url: urlpath,
+                data: JSON.stringify(Registers),
+                dataType: "json",  
+                success: function (data) {
+                    if (data == true) {
+                        alert("Record Save Successfully!!!");//never returned
+                        window.location.href = "@Url.Action("HomePage", "Home")";
+                    } else {
+                        alert("Please enter valid Details")
+                    }
+                },
+                error: function (err) {
+                    alert("Record Not Saved");//always return this one, even it's succeed
+                }
+            });
+        } else {
+            // show toast message
+            alert("Please enter required field");
+        }
         });
+            
         </script>
     }

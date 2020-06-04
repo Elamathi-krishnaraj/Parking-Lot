@@ -79,11 +79,15 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 <script>
+    var roleObj = [];
     $(document).ready(function () {
-        $("#FromDate").val("");
-        $("#ToDate").val("");
+        $("#FromDate").attr("disabled", true).val("");
+        $("#ToDate").attr("disabled", true).val("");
         $('#PreferenceTwoTowerId').attr("disabled", true);
         $('#PreferenceThreeTowerId').attr("disabled", true);
+        $("#PreferenceOneTowerId option").each(function () {
+            roleObj.push(this)		// or $(this).val()
+            });
     });
     $("#DurationId").change(function (val) {
         optionselected = $(this).val();
@@ -117,6 +121,11 @@
     $("#PreferenceTwoTowerId").change(function (val) {
         $('#PreferenceThreeTowerId').attr("disabled", false);
         $("#PreferenceThreeTowerId option[value='" + $(this).val() + "']").remove();
+        $("#PreferenceOneTowerId option[value='" + $(this).val() + "']").remove();
+    });
+    $("#PreferenceThreeTowerId").change(function (val) {
+        $("#PreferenceOneTowerId option[value='" + $(this).val() + "']").remove();
+        $("#PreferenceTwoTowerId option[value='" + $(this).val() + "']").remove();
     });
     $("#savebtn").click(function (e) {
         e.preventDefault();
@@ -142,9 +151,12 @@
                 data: JSON.stringify(RequestDetails),
                 dataType: "json",  
                 success: function (data) {
-                    alert("Record Save Successfully!!!");//never returned
-                    window.location.href = "@Url.Action("HomePage", "Home")";
-
+                    if (data == true) {
+                        alert("Record Save Successfully!!!");//never returned
+                        window.location.href = "@Url.Action("HomePage", "Home")";
+                    } else {
+                        alert("Please fill the details");
+                    }
                 },
                 error: function (err) {
                     alert("Record Not Saved");//always return this one, even it's succeed
