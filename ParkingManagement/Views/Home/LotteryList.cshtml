@@ -25,7 +25,8 @@
 <div>
     <input id="urlPathid" type="hidden" value="@Url.Action("RunLottery", "Lottery")" />
     <input type="button" value="Run Lottery" class="btn-success" id="btnrunlottery" onclick="runlottery();" />
-    <input type="button" value="Back" class="btn-danger" onclick="@("window.location.href='" + @Url.Action("HomePage", "Home") + "'");" />
+    <input type="button" value="Back" class="btn-danger" id="btnrunlottery" onclick="cancelclick(@HttpContext.Current.Session["UserId"].ToString());" />
+    @*<input type="button" value="Back" class="btn-danger" onclick="@("window.location.href='" + @Url.Action("HomePage", "Home") + "'");" />*@
 
 </div>
 
@@ -80,6 +81,10 @@
                     alert("Lottery based alllocation failed");//always return this one, even it's succeed
                 }
             });
+        }
+        function cancelclick(req_id) {
+             window.location.href = "@Url.Action("HomePage", "Home")?userid=" + req_id;
+
         }
     </script>
 }

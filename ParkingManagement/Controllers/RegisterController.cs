@@ -77,11 +77,11 @@ namespace ParkingManagement.Controllers
         {
             try
             {
-                var isValidUser = false;
+                var isValidUser = 0;
                 var loginuser = await _unitOfWork.Registers.ValidateLogin(LoginUser);
                 if (loginuser != null)
                 {
-                    isValidUser = true;
+                    isValidUser = loginuser.RegisterId;
                     Session["Username"] = loginuser.UserName;
                     Session["UserId"] = loginuser.RegisterId;
                     if (loginuser.RoleId == 1)
@@ -92,7 +92,7 @@ namespace ParkingManagement.Controllers
                 
                 if (HttpContext.Request.IsAjaxRequest())
                     return Json(isValidUser, JsonRequestBehavior.AllowGet);
-                return Redirect("/Home/HomePage");
+                return Redirect("/Home/HomePage/" + isValidUser);
             }
             catch (Exception ex)
             {

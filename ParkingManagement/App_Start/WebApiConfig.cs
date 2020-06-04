@@ -18,6 +18,9 @@ namespace ParkingManagement
 
             // Web API configuration and services
 
+            // web API cors
+            config.EnableCors();
+
             // Web API routes
             config.MapHttpAttributeRoutes();
 

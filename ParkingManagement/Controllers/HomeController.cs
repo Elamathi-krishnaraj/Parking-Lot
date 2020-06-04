@@ -9,6 +9,7 @@ using ParkingManagement.Core.Model;
 
 namespace ParkingManagement.Controllers
 {
+    [CustomActionFilter]
     public class HomeController : Controller
     {
         log4net.ILog logger = log4net.LogManager.GetLogger(typeof(HomeController));
@@ -28,27 +29,41 @@ namespace ParkingManagement.Controllers
 
             return View();
         }
-
-        public async Task<ActionResult> HomePage()
+        public ViewResult ResultPage(int userid)
         {
             try
             {
-                if (Session["UserId"] == null)
-                {
-                    return Redirect("/Register/Login");
-                }
-                else
-                {
+                var homepage = new HomePage();
+                var UserId = Convert.ToInt32(userid);
+                var reqList = _unitOfWork.RequestDetails.GetRequestDetails();
+                List<RequestDetails> requestList = reqList.ToList();
+                homepage.RequestList = reqList.ToList();
+                homepage.UserId = Convert.ToInt32(UserId);
+                return View(homepage);
+            }
+            catch (Exception ex)
+            {
+                logger.Info("HomePage error : " + ex);
+                logger.Debug(ex);
+                return View("Error");
+            }
+        }
+
+
+        public  ViewResult HomePage(int userid)
+        {
+            try
+            {
                     var homepage = new HomePage();
-                    var UserId = Convert.ToInt32(Session["UserId"]);
-                    var reqList = await _unitOfWork.RequestDetails.GetRequestDetails();
+                    //var UserId = Convert.ToInt32(Session["UserId"]);
+                    var UserId = Convert.ToInt32(userid);
+                    var reqList = _unitOfWork.RequestDetails.GetRequestDetails();
                     List<RequestDetails> requestList = reqList.ToList();
                     homepage.RequestList = reqList.Where(c => c.RegisterId == Convert.ToInt32(UserId)).ToList();
                     homepage.UserId = Convert.ToInt32(UserId);
                     homepage.UserName = Session["Username"].ToString();
                     homepage.RoleName = Session["Role"].ToString();
                     return View(homepage);
-                }
             }
             catch (Exception ex)
             {
@@ -61,5 +76,6 @@ namespace ParkingManagement.Controllers
         {
             return View();
         }
+
     }
 }

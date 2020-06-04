@@ -116,6 +116,9 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -123,6 +126,9 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.7\lib\net45\System.Web.Http.Cors.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
@@ -232,6 +238,8 @@
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Core\DTOModel\RegisterDTO.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
+    <Compile Include="Core\Model\ActionExectionTime.cs" />
+    <Compile Include="Core\Model\Actionlog.cs" />
     <Compile Include="Core\Model\CacheFiltercs.cs" />
     <Compile Include="Core\Model\CustomActionFilter.cs" />
     <Compile Include="Core\Model\HomePage.cs" />
@@ -351,6 +359,14 @@
     <Compile Include="Migrations\202006020601583_AddedFKToParkingslot.cs" />
     <Compile Include="Migrations\202006020601583_AddedFKToParkingslot.designer.cs">
       <DependentUpon>202006020601583_AddedFKToParkingslot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006040236232_Actionlog.cs" />
+    <Compile Include="Migrations\202006040236232_Actionlog.designer.cs">
+      <DependentUpon>202006040236232_Actionlog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006040344323_Actionlogtime.cs" />
+    <Compile Include="Migrations\202006040344323_Actionlogtime.designer.cs">
+      <DependentUpon>202006040344323_Actionlogtime.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Persistence\ParkingManagementContext.cs" />
@@ -711,6 +727,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006020601583_AddedFKToParkingslot.resx">
       <DependentUpon>202006020601583_AddedFKToParkingslot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006040236232_Actionlog.resx">
+      <DependentUpon>202006040236232_Actionlog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006040344323_Actionlogtime.resx">
+      <DependentUpon>202006040344323_Actionlogtime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

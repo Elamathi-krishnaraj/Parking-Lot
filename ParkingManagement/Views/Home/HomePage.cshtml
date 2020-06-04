@@ -81,7 +81,7 @@
         });
         function DeleteClick(req_id) {
             if (confirm(" Are you sure?")) {
-            window.location.href = "@Url.Action("DeleteView", "Slotrequest")?id=" + req_id;
+                window.location.href = "@Url.Action("DeleteView", "Slotrequest")?userid=" + req_id;
             }
         }
     </script>

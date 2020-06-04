@@ -3,10 +3,12 @@ using System.Web.Http;
 using ParkingManagement.Core.Model;
 using ParkingManagement.Persistence;
 using System.Data.Entity;
-using System.Web.Mvc;
+using System.Web.Http.Cors;
 
 namespace ParkingManagement.Controllers.Api
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
+
     public class EmployeeSlotController : ApiController
     {
         private ParkingManagementContext _context;

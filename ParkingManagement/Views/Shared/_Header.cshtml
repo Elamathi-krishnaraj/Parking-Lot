@@ -6,13 +6,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            @Html.ActionLink("Parking Management", "HomePage", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            @Html.ActionLink("Parking Management", "", "", new { area = "" }, new { @class = "navbar-brand" })
         </div>
         <div class="navbar-collapse collapse" style="padding-left:900px;">
             <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Home", "HomePage", "Home", new { area = "" }, null)</li>
                 @if (HttpContext.Current.Session["UserId"] != null && HttpContext.Current.Session["UserId"].ToString() != "")
                 {
+                    <li><a onclick="Homeclick(@HttpContext.Current.Session["UserId"].ToString());">Home</a>
+                        @*@Html.ActionLink("Home", "HomePage", "Home", new { area = "" }, null)*@
+                        @*<input type="button" value="Home" class="btn-success" onclick="Homeclick(@HttpContext.Current.Session["UserId"].ToString());" />*@
+                    </li>
                     <li> @Html.ActionLink("Logout", "Logout", "Register", new { area = "" }, null) </li>
 
                 }
@@ -25,3 +28,8 @@
         </div>
     </div>
 </div>
+<script>
+        function Homeclick(Userid) {
+            window.location.href = "@Url.Action("HomePage", "Home")?userid=" + parseInt(Userid);
+        }
+</script>

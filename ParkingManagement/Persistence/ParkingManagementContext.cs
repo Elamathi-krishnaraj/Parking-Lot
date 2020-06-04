@@ -50,6 +50,7 @@ namespace ParkingManagement.Persistence
         public virtual DbSet<ParkingAllocation> ParkingAllocations { get; set; }
         public virtual DbSet<SurrenderHistory> SurrenderHistories { get; set; }
         public virtual DbSet<TowerParkingSlot> TowerParkingSlots { get; set; }
+        public virtual DbSet<Actionlog> Actionlogs { get; set; }
 
 
         public virtual DbSet<TowerBlock> TowerBlocks { get; set; }

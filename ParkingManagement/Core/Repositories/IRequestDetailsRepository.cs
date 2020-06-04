@@ -9,7 +9,8 @@ namespace ParkingManagement.Core.Repositories
 {
     public interface IRequestDetailsRepository : IRepository<RequestDetails>
     {
-        Task<IEnumerable<RequestDetails>> GetRequestDetails();
+        IEnumerable<RequestDetails> GetRequestDetails();
+        Task<IEnumerable<RequestDetails>> GetRequestDetailsAsync();
         Task<IEnumerable<RequestDetails>> GetPatientsApi();
     }
 }

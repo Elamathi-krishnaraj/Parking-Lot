@@ -15,11 +15,17 @@ namespace ParkingManagement.Persistence.Repositories
             : base(context)
         {
         }
-        public async Task<IEnumerable<RequestDetails>> GetRequestDetails()
+        public async Task<IEnumerable<RequestDetails>> GetRequestDetailsAsync()
         {
             return await ParkingManagementContext.RequestDetails
                 .Include(c=>c.RequestDurationType)
                 .Include(c=>c.Registers).ToListAsync();
+        }
+        public IEnumerable<RequestDetails> GetRequestDetails()
+        {
+            return ParkingManagementContext.RequestDetails
+                .Include(c => c.RequestDurationType)
+                .Include(c => c.Registers).ToList();
         }
         public async Task<IEnumerable<RequestDetails>> GetPatientsApi()
         {

@@ -34,7 +34,7 @@ namespace ParkingManagement.Persistence
         public IRequestDuationTypeRepository RequestDuationTypes { get; private set; }
         public ITowerRepository Tower { get; private set; }
         public IParkingSlotRepository ParkingSlot { get; private set; }
-        public IRequestDetailsRepository RequestDetails { get; private set; }
+        public IRequestDetailsRepository RequestDetails { get; set; }
         public IParkingAllocationRepository ParkingAllocation { get; private set; }
         public ISurrenderHistoryRepository SurrenderHistory { get; private set; }
         public ITowerParkingSlotRepository TowerParkingSlot { get; private set; }
